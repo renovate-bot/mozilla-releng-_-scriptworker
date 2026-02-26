@@ -136,7 +136,7 @@ def sync_main(
     config_path: Optional[str] = None,
     default_config: Optional[Dict[str, Any]] = None,
     should_validate_task: bool = True,
-    loop_function: Callable[[], AbstractEventLoop] = asyncio.get_event_loop,
+    loop_function: Callable[[], AbstractEventLoop] = asyncio.new_event_loop,
 ) -> None:
     """Entry point for scripts using scriptworker.
 
@@ -156,7 +156,7 @@ def sync_main(
             schema. Defaults to True.
         loop_function (function, optional): the function to call to get the
             event loop; here for testing purposes. Defaults to
-            ``asyncio.get_event_loop``.
+            ``asyncio.new_event_loop``.
 
     """
     context = _init_context(config_path, default_config)
