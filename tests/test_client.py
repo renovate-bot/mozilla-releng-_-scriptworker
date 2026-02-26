@@ -245,6 +245,22 @@ async def test_sync_main_runs_fully(config, should_validate_task):
     assert len(async_main_calls) == 1  # async_main was called once
 
 
+def test_sync_main(config):
+    copyfile(BASIC_TASK, os.path.join(config["work_dir"], "task.json"))
+    async_main_calls = []
+
+    async def async_main(*args):
+        async_main_calls.append(args)
+
+    with tempfile.NamedTemporaryFile("w+") as f:
+        json.dump(config, f)
+        f.seek(0)
+
+        client.sync_main(async_main, should_validate_task=False, config_path=f.name)
+
+    assert len(async_main_calls) == 1  # async_main was called once
+
+
 @pytest.mark.parametrize(
     "does_use_argv, default_config",
     (
