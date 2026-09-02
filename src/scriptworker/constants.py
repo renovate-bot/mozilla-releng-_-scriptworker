@@ -335,7 +335,10 @@ DEFAULT_CONFIG: immutabledict[str, Any] = immutabledict(
                                 {
                                     "schemes": ("https", "ssh"),
                                     "netlocs": ("github.com",),
-                                    "path_regexes": (r"^(?P<path>/mozilla/enterprise-firefox)(/|.git|$)",),
+                                    "path_regexes": (
+                                        r"^(?P<path>/mozilla/enterprise-firefox)(/|.git|$)",
+                                        r"^(?P<path>/thunderbird/thunderbird-desktop)(/|.git|$)",
+                                    ),
                                 }
                             ),
                         ),
@@ -500,7 +503,10 @@ DEFAULT_CONFIG: immutabledict[str, Any] = immutabledict(
                     {
                         "adhoc": "mozilla-releng",
                         "app-services": "mozilla",
-                        "enterprise": "mozilla",
+                        "enterprise": (
+                            "mozilla",
+                            "thunderbird",
+                        ),
                         "firefox": "",
                         "glean": "mozilla",
                         "mobile": "mozilla-mobile",
@@ -650,7 +656,14 @@ DEFAULT_CONFIG: immutabledict[str, Any] = immutabledict(
                             }
                         ),
                         "app-services": immutabledict({"app-services-repo": ("/mozilla/application-services",)}),
-                        "enterprise": immutabledict({"enterprise-firefox-repo": ("/mozilla/enterprise-firefox",)}),
+                        "enterprise": immutabledict(
+                            {
+                                "enterprise-firefox-repo": (
+                                    "/mozilla/enterprise-firefox",
+                                    "/thunderbird/thunderbird-desktop",
+                                )
+                            }
+                        ),
                         "firefox": immutabledict(
                             {
                                 # Which repos can perform release actions?

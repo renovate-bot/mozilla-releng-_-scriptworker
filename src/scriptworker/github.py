@@ -296,6 +296,8 @@ def is_github_repo_owner_the_official_one(context, repo_owner):
             'This worker does not have a defined owner for official GitHub repositories. Given "official_github_repos_owner": {}'.format(official_repo_owner)
         )
 
+    elif isinstance(official_repo_owner, tuple):
+        return repo_owner in official_repo_owner
     return official_repo_owner == repo_owner
 
 
